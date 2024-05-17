@@ -64,9 +64,6 @@
                       if(settings.header_style == "box"){
                         headerStyle += "border-left: 6px solid #" + category.color + ";"
                       }
-                      if(settings.header_style == "banner"){
-                        headerStyle += "background-color: #" + category.color + "; color: #" + category.text_color + ";"
-                      }
                       if(category.uploaded_background){
                           if(settings.header_background_image != "outside"){
                                 headerStyle += "background-image: url(" + category.uploaded_background.url + ");" 
@@ -75,11 +72,23 @@
                       return headerStyle;
                   }
                   
+                  function getContentStyle() {
+                      let contentStyle = "";
+                      if(settings.header_style == "banner"){
+                        contentStyle += "background-color: #" + category.color + "; color: #" + category.text_color + ";"
+                      }
+                      return contentStyle;
+                  }
+
                   return h('div.category-title-header' + " .category-banner-" + category.slug, {
                       "attributes" : {
                           "style" : getHeaderStyle()
                       }
-                  }, h('div.category-title-contents', [ 
+                  }, h('div.category-title-contents', {
+                      "attributes" : {
+                          "style" : getContentStyle()
+                      }
+                  }, [ 
                   h('div.category-logo.aspect-image', logoImg()), 
                   h('div.category-title-name', [
                   ifParentProtected(),                      
