@@ -16,6 +16,61 @@
 
           const isException = category && settings.hide_category_exceptions.split("|").includes(category.name);
 
+          function ifParentCategory(){
+            if (category.parentCategory) {
+                return h('a.parent-box-link',{"attributes" : {"href" : category.parentCategory.url}}, h('h1',category.parentCategory.name + ": "));
+            }
+          }
+
+          function catDesc() {
+              if(settings.show_category_description) {
+                  return h('div.cooked', {innerHTML: category.description});
+              }
+          }
+          
+          function logoImg() {
+              if(settings.show_category_logo && category.uploaded_logo){
+                return [h('img',{"attributes" : {"src" : category.uploaded_logo.url}})];
+              } else if (settings.show_category_logo && settings.show_parent_category_logo && category.parentCategory && category.parentCategory.uploaded_logo) {
+                return [h('img',{"attributes" : {"src" : category.parentCategory.uploaded_logo.url}})];                        
+              } else if (settings.show_site_logo && siteSettings.logo_small) {
+                return [h('img',{"attributes" : {"src" : siteSettings.logo_small}})];
+              }
+          }
+          
+          function ifParentProtected() {
+              if(category.parentCategory && category.parentCategory.read_restricted) {
+                  return lockIcon;
+              }
+          }                  
+
+          function ifProtected() {
+              if(category.read_restricted) {
+                  return lockIcon;
+              }
+          }
+          
+          function getHeaderStyle() {
+              let headerStyle = "";
+              if(settings.header_style == "box"){
+                headerStyle += "border-left: 6px solid #" + category.color + ";"
+              }
+              if(category.uploaded_background){
+                  if(settings.header_background_image != "outside"){
+                        headerStyle += "background-image: url(" + category.uploaded_background.url + ");" 
+                  }
+              }
+              return headerStyle;
+          }
+          
+          function getContentStyle() {
+              let contentStyle = "";
+              if(settings.header_style == "banner"){
+                contentStyle += "background-color: #" + category.color + "EE; color: #" + category.text_color + ";"
+              }
+              return contentStyle;
+          }
+
           if(/^\/c\//.test(path)) {
               const hideMobile = !settings.show_mobile && this.site.mobileView;
               const subCat = !settings.show_subcategory_header && category.parentCategory;
@@ -24,61 +79,6 @@
               if(!isException && !noDesc && !subCat && !hideMobile) {
                   $("body").addClass("category-header");
                   //list-controls
-                  
-                  function ifParentCategory(){
-                    if (category.parentCategory) {
-                        return h('a.parent-box-link',{"attributes" : {"href" : category.parentCategory.url}}, h('h1',category.parentCategory.name + ": "));
-                    }
-                  }
-
-                  function catDesc() {
-                      if(settings.show_category_description) {
-                          return h('div.cooked', {innerHTML: category.description});
-                      }
-                  }
-                  
-                  function logoImg() {
-                     if(settings.show_category_logo && category.uploaded_logo){
-                        return [h('img',{"attributes" : {"src" : category.uploaded_logo.url}})];
-                     } else if (settings.show_category_logo && settings.show_parent_category_logo && category.parentCategory && category.parentCategory.uploaded_logo) {
-                        return [h('img',{"attributes" : {"src" : category.parentCategory.uploaded_logo.url}})];                        
-                     } else if (settings.show_site_logo && siteSettings.logo_small) {
-                        return [h('img',{"attributes" : {"src" : siteSettings.logo_small}})];
-                     }
-                  }
-                  
-                  function ifParentProtected() {
-                      if(category.parentCategory && category.parentCategory.read_restricted) {
-                          return lockIcon;
-                      }
-                  }                  
-
-                  function ifProtected() {
-                      if(category.read_restricted) {
-                          return lockIcon;
-                      }
-                  }
-                  
-                  function getHeaderStyle() {
-                      let headerStyle = "";
-                      if(settings.header_style == "box"){
-                        headerStyle += "border-left: 6px solid #" + category.color + ";"
-                      }
-                      if(category.uploaded_background){
-                          if(settings.header_background_image != "outside"){
-                                headerStyle += "background-image: url(" + category.uploaded_background.url + ");" 
-                         }
-                      }
-                      return headerStyle;
-                  }
-                  
-                  function getContentStyle() {
-                      let contentStyle = "";
-                      if(settings.header_style == "banner"){
-                        contentStyle += "background-color: #" + category.color + "EE; color: #" + category.text_color + ";"
-                      }
-                      return contentStyle;
-                  }
 
                   return h('div.category-title-header' + " .category-banner-" + category.slug, {
                       "attributes" : {
@@ -100,6 +100,32 @@
                   ]),
                   );
               }
+          } else if (path === '/latest') {
+              category = {
+                name: 'All Discussions',
+                description: 'Here is where you can view all discussions posted by community members.',
+                color: '#242424',
+                text_color: '#FFFFFF',
+                uploaded_background: {
+                  url: 'https://i.postimg.cc/PqyRcrMK/Discussion.jpg',
+                }
+              }
+
+              return h('div.category-title-header' + " .category-banner-latest", {
+                  "attributes" : {
+                      "style" : getHeaderStyle()
+                  }
+              }, h('div.category-title-contents', {
+                  "attributes" : {
+                      "style" : getContentStyle()
+                  }
+              }, [ 
+              h('div.category-title-name', [
+              h('h1', category.name)
+              ]),
+              h('div.category-title-description',catDesc())
+              ]),
+              );
           } else {
               $("body").removeClass("category-header");
           }
