@@ -59,7 +59,6 @@ div[class^="category-title-header"] {
     }
     h1 {
       display: inline;
-      font-size: 48px !important;
       color: #eee;
       font-family: var(--default-font-family) !important;
       font-weight: 300 !important;
@@ -80,7 +79,7 @@ div[class^="category-title-header"] {
   .category-title-description {
     padding-top: 0.5em;
     font-weight: 300;
-    font-size: 26px !important;
+    font-size: 18px !important;
     @media screen and (max-width: 600px) {
       font-size: 16px !important;
     }
