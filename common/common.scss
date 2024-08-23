@@ -5,11 +5,15 @@ div[class^="category-title-header"] {
 .category-header div[class^="category-title-header"] {
   box-sizing: border-box;
   display: block;
-  margin-bottom: 20px;
   text-align: $text_align;
   width: 100%;
   justify-content: center;
   overflow: hidden;
+
+  @media screen and (max-width: 600px) {
+    width: auto;
+    height: 280px;
+  }
 
   @if $header_style == "box" {
     border: 2px solid $primary_low;
@@ -28,11 +32,16 @@ div[class^="category-title-header"] {
   }
 
   .category-title-contents {
-    padding: 40px 40px;
     display: flex;
+    height: 175px;
     flex-direction: column;
-    @media screen and (max-width: 600px){
-      padding: 30px 20px !important;
+    padding: 0px 50px !important;
+    justify-content: center !important;
+    align-items: flex-start;
+    @media screen and (max-width: 600px) {
+      padding: 0 20px !important;
+      height: 157px;
+      margin-top: 125px !important;
     }
     svg {
       height: 1.5em;
@@ -51,18 +60,20 @@ div[class^="category-title-header"] {
     h1 {
       display: inline;
       font-size: 48px !important;
+      color: #eee;
       font-family: var(--default-font-family) !important;
+      font-weight: 300 !important;
 
-      @media screen and (max-width: 600px){
+      @media screen and (max-width: 600px) {
         font-size: 26px !important;
       }
     }
-    .parent-box-link{
+    .parent-box-link {
       display: none;
     }
   }
 
-  .cooked{
+  .cooked {
     font-family: var(--default-font-family) !important;
     line-height: 1.2;
   }
@@ -70,10 +81,9 @@ div[class^="category-title-header"] {
     padding-top: 0.5em;
     font-weight: 300;
     font-size: 26px !important;
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 600px) {
       font-size: 16px !important;
     }
-
 
     @if ($show_category_description == "false") {
       display: none;
@@ -97,50 +107,55 @@ div[class^="category-title-header"] {
   display: none;
 }
 
-.category-header-widget svg.d-icon-lock {
-  @if ($show_lock_icon == "false") {
-    display: none;
+.category-header-widget {
+  svg.d-icon-lock {
+    @if ($show_lock_icon == "false") {
+      display: none;
+    }
+  }
+
+  .category-logo.aspect-image,
+  .category-logo.aspect-image > img {
+    @if ($position_logo == "top") {
+      float: none;
+      max-width: 100%;
+      margin: 0 0 0.25em 0;
+    } @else if ($position_logo == "left") {
+      float: $position_logo;
+      margin: 0 0.5em 0.25em 0;
+    } @else if ($position_logo == "right") {
+      float: $position_logo;
+      margin: 0 0 0.25em 0.5em;
+    }
+    @if ($size_logo == "standard") {
+      max-height: 150px;
+    } @else if ($size_logo == "small") {
+      max-height: 50px;
+    } @else {
+      max-height: 2000px;
+    }
+  }
+
+  .category-logo.aspect-image > img {
+    width: auto;
+    height: auto;
+    display: inline-block;
   }
 }
 
-.category-header-widget .category-logo.aspect-image,
-.category-header-widget .category-logo.aspect-image > img {
-  @if ($position_logo == "top") {
-    float: none;
-    max-width: 100%;
-    margin: 0 0 0.25em 0;
-  } @else if ($position_logo == "left") {
-    float: $position_logo;
-    margin: 0 0.5em 0.25em 0;
-  } @else if ($position_logo == "right") {
-    float: $position_logo;
-    margin: 0 0 0.25em 0.5em;
-  }
-  @if ($size_logo == "standard") {
-    max-height: 150px;
-  } @else if ($size_logo == "small") {
-    max-height: 50px;
-  } @else {
-    max-height: 2000px;
-  }
-}
-
-.category-header-widget .category-logo.aspect-image > img {
-  width: auto;
-  height: auto;
-  display: inline-block;
-}
-
-body.category-header .category-header-widget .category-title-contents, body.category .category-header-widget .category-title-contents{
-  padding: 20px 40px;
-}
-
-@media screen and (max-width: 600px){
-  body.category-header .category-header-widget .category-title-contents .category-title-name, body.category .category-header-widget .category-title-contents .category-title-name{
+@media screen and (max-width: 600px) {
+  body.category-header
+    .category-header-widget
+    .category-title-contents
+    .category-title-name,
+  body.category
+    .category-header-widget
+    .category-title-contents
+    .category-title-name {
     display: inline !important;
   }
 
-  body.category-header #main-outlet-wrapper{
+  body.category-header #main-outlet-wrapper {
     padding: 0;
   }
 }
