@@ -1,97 +1,101 @@
-div[class^="category-title-header"] {
-  display: none;
-}
+.category-header {
+  div[class^="category-title-header"] {
+    box-sizing: border-box;
+    display: block;
+    text-align: $text_align;
+    width: 100%;
+    justify-content: center;
+    overflow: hidden;
 
-.category-header div[class^="category-title-header"] {
-  box-sizing: border-box;
-  display: block;
-  text-align: $text_align;
-  width: 100%;
-  justify-content: center;
-  overflow: hidden;
-
-  @media screen and (max-width: 600px) {
-    width: auto;
-    height: 280px;
-  }
-
-  @if $header_style == "box" {
-    border: 2px solid $primary_low;
-  } @else {
-    border: 0px !important;
-  }
-
-  @if ($header_background_image == "cover") {
-    background-size: cover;
-  } @else if ($header_background_image == "contain") {
-    background-size: contain;
-  } @else if ($header_background_image == "resize") {
-    background-size: 100% 100%;
-  } @else {
-    background-image: none;
-  }
-
-  .category-title-contents {
-    display: flex;
-    height: 175px;
-    flex-direction: column;
-    padding: 0px 50px !important;
-    justify-content: center !important;
-    align-items: flex-start;
     @media screen and (max-width: 600px) {
-      padding: 0 20px !important;
-      height: 157px;
-      margin-top: 125px !important;
+      width: auto;
+      height: 280px;
     }
-    svg {
-      height: 1.5em;
-      width: 1.1em;
-      margin-right: 0.25em;
-    }
-  }
-  .category-title-name {
-    @if ($show_category_name == "false") {
-      display: none;
-    }
-    a:link,
-    a:visited {
-      color: inherit;
-    }
-    h1 {
-      display: inline;
-      color: #eee;
-      font-family: var(--default-font-family) !important;
-      font-weight: 300 !important;
 
+    @if $header_style == "box" {
+      border: 2px solid $primary_low;
+    } @else {
+      border: 0px !important;
+    }
+
+    @if ($header_background_image == "cover") {
+      background-size: cover;
+    } @else if ($header_background_image == "contain") {
+      background-size: contain;
+    } @else if ($header_background_image == "resize") {
+      background-size: 100% 100%;
+    } @else {
+      background-image: none;
+    }
+
+    .category-title-contents {
+      display: flex;
+      height: 175px;
+      flex-direction: column;
+      padding: 0px 50px !important;
+      justify-content: center !important;
+      align-items: flex-start;
       @media screen and (max-width: 600px) {
-        font-size: 26px !important;
+        padding: 0 20px !important;
+        height: 157px;
+        margin-top: 125px !important;
+      }
+      svg {
+        height: 1.5em;
+        width: 1.1em;
+        margin-right: 0.25em;
       }
     }
-    .parent-box-link {
-      display: none;
+    .category-title-name {
+      @if ($show_category_name == "false") {
+        display: none;
+      }
+      a:link,
+      a:visited {
+        color: inherit;
+      }
+      h1 {
+        display: inline;
+        color: #eee;
+        font-family: var(--default-font-family) !important;
+        font-weight: 300 !important;
+
+        @media screen and (max-width: 600px) {
+          font-size: 26px !important;
+        }
+      }
+      .parent-box-link {
+        display: none;
+      }
+    }
+
+    .cooked {
+      font-family: var(--default-font-family) !important;
+      line-height: 1.2;
+    }
+    .category-title-description {
+      padding-top: 0.5em;
+      font-weight: 300;
+      font-size: 18px !important;
+      @media screen and (max-width: 600px) {
+        font-size: 16px !important;
+      }
+
+      @if ($show_category_description == "false") {
+        display: none;
+      }
+    }
+    a.parent-box-link {
+      @if ($show_parent_category_name == "false") {
+        display: none;
+      }
     }
   }
 
-  .cooked {
-    font-family: var(--default-font-family) !important;
-    line-height: 1.2;
-  }
-  .category-title-description {
-    padding-top: 0.5em;
-    font-weight: 300;
-    font-size: 18px !important;
-    @media screen and (max-width: 600px) {
-      font-size: 16px !important;
-    }
 
-    @if ($show_category_description == "false") {
-      display: none;
-    }
-  }
-  a.parent-box-link {
-    @if ($show_parent_category_name == "false") {
-      display: none;
-    }
+
+  .above-main-container-outlet.featured-cards {
+    display: none;
   }
 }
 
