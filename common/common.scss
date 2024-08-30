@@ -20,7 +20,14 @@
 
     @if ($header_background_image == "cover") {
       background-size: cover;
-      background-position: center;
+
+      @if ($header_background_position == "center") {
+        background-position: center;
+      } @else if ($header_background_position == "top") {
+        background-position: top;
+      } @else if ($header_background_position == "bottom") {
+        background-position: bottom;
+      }
     } @else if ($header_background_image == "contain") {
       background-size: contain;
     } @else if ($header_background_image == "resize") {
@@ -92,8 +99,6 @@
       }
     }
   }
-
-
 
   .above-main-container-outlet.featured-cards {
     display: none;
