@@ -20,6 +20,7 @@
 
     @if ($header_background_image == "cover") {
       background-size: cover;
+      background-position: center;
     } @else if ($header_background_image == "contain") {
       background-size: contain;
     } @else if ($header_background_image == "resize") {
